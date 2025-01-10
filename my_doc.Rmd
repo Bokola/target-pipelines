@@ -1,0 +1,37 @@
+---
+title: "render-with-target"
+output:
+  html_document: default
+date: "2025-01-09"
+---
+
+
+```{r, include=FALSE}
+# hide all source codes
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Load the summary
+
+It's a good approach to look at the distribution of the numeric variables
+
+```{r}
+tar_read(summary_mtcars) %>% 
+  select(Variable = skim_variable,
+         mean = numeric.mean,
+         SD = numeric.sd,
+         Histogram = numeric.hist) %>% 
+  flextable() %>% set_caption("Summary statistics for mtcars")
+```
+
+## Graphics
+
+An example plot:
+
+```{r, fig.cap = "Scatterplot of `mpg` and `hp` by type of transmission"}
+tar_read(plot_mtcars) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
